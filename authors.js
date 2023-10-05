@@ -35,8 +35,8 @@ export async function updateAuthorById(id, updates) {
   // Query the database to update an author and return the newly updated author or null
   const { first_name, last_name } = updates;
   const queryText =
-    "UPDATE authors SET first_name = $2, last_name = $3 WHERE id = $1 RETURNING *";
-  const result = await pool.query(queryText, [id, first_name, last_name]);
+    "UPDATE authors SET first_name = $1, last_name = $2 WHERE id = $3 RETURNING *";
+  const result = await pool.query(queryText, [first_name, last_name, id]);
   return result.rows[0] || null;
 }
 
