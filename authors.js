@@ -33,6 +33,11 @@ export async function createAuthor(author) {
 
 export async function updateAuthorById(id, updates) {
   // Query the database to update an author and return the newly updated author or null
+  const { first_name, last_name } = updates;
+  const queryText =
+    "UPDATE authors SET first_name = $2, last_name = $3 WHERE id = $1 RETURNING *";
+  const result = await pool.query(queryText, [id, first_name, last_name]);
+  return result.rows[0] || null;
 }
 
 export async function deleteAuthorById(id) {
