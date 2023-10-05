@@ -23,6 +23,7 @@ import {
 // Initialize the express app
 const app = express();
 // Retrieve the port number from environment variables
+
 const PORT = process.env.PORT;
 
 // Middleware

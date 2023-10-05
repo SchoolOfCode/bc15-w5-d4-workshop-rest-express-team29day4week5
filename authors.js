@@ -10,6 +10,7 @@ export async function getAuthors() {
 
   // The rows property of the result object contains the retrieved records
   return result.rows;
+  await pool.end();
 }
 
 export async function getAuthorById(id) {
@@ -17,6 +18,7 @@ export async function getAuthorById(id) {
   const queryText = "SELECT * FROM authors WHERE id = $1";
   const result = await pool.query(queryText, [id]);
   return result.rows[0] || null;
+  await pool.end();
 }
 
 export async function createAuthor(author) {
@@ -29,6 +31,7 @@ export async function createAuthor(author) {
     author.last_name,
   ]);
   return result.rows[0] || null;
+  await pool.end();
 }
 
 export async function updateAuthorById(id, updates) {
@@ -38,6 +41,7 @@ export async function updateAuthorById(id, updates) {
     "UPDATE authors SET first_name = $1, last_name = $2 WHERE id = $3 RETURNING *";
   const result = await pool.query(queryText, [first_name, last_name, id]);
   return result.rows[0] || null;
+  await pool.end();
 }
 
 export async function deleteAuthorById(id) {
@@ -45,4 +49,5 @@ export async function deleteAuthorById(id) {
   const queryText = "DELETE FROM authors WHERE id = $1 RETURNING *";
   const result = await pool.query(queryText, [id]);
   return result.rows[0] || null;
+  await pool.end();
 }
