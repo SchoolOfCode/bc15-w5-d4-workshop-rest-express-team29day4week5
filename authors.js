@@ -2,8 +2,17 @@
 import { pool } from "./db/index.js";
 
 export async function getAuthors() {
-  // Query the database and return all authors
+
+  // Define the SQL query to fetch all books from the 'books' table
+  const queryText = "SELECT * FROM authors";
+
+  // Use the pool object to send the query to the database
+  const result = await pool.query(queryText);
+
+  // The rows property of the result object contains the retrieved records
+  return result.rows;
 }
+
 
 export async function getAuthorById(id) {
   // Query the database and return the author with a matching id or null
